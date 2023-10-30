@@ -1,32 +1,36 @@
-import './App.css'
+import "./App.css";
+import LocationForm from "./components/LocationForm";
 
-function App() {
-  const [count, setCount] = useState(0)
+import { useState } from "react";
+import axios from "axios";
+
+const API_KEY = import.meta.env.VITE - API - KEY;
+
+export default function App() {
+  const [location, setLocation] = useState({});
+  const [search, setSearch] = useState({});
+
+  function handleChange(event) {
+    setSearch(event.target.value);
+  }
+
+  async function getLoaction(event) {
+    event.preventDefault();
+
+    const API = `https://eu1.locationiq.com/v1/search?q-${search}&key=${API_KEY}&format-json`;
+
+    const res = await axios.get(API);
+
+    setLocation(res.data[0]);
+  }
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div>
+      <h1>City Explorer</h1>
+      <LocationForm getLocation={getLocation} handleChange={handleChange} />
+      <h2>{location.display_name}</h2>
+    </div>
+  );
 }
 
-export default App
+//
