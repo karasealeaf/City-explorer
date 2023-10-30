@@ -14,7 +14,7 @@ export default function App() {
     setSearch(event.target.value);
   }
 
-  async function getLoaction(event) {
+  async function getLocation(event) {
     event.preventDefault();
 
     const API = `https://eu1.locationiq.com/v1/search?q-${search}&key=${API_KEY}&format-json`;
@@ -26,11 +26,16 @@ export default function App() {
 
   return (
     <div>
-      <h1>City Explorer</h1>
+      <h1>Choose your location!</h1>
       <LocationForm getLocation={getLocation} handleChange={handleChange} />
       <h2>{location.display_name}</h2>
+      <h2>
+        Latitude: {location.lat}, Longitude: {location.lon}
+      </h2>
+      <img
+        src={`https://maps.locationiq.com/v3/staticmap?key=${API_KEY}&center=${location.lat},${location.lon}&zoom=16`}
+        alt="Location map"
+      />
     </div>
   );
 }
-
-//
