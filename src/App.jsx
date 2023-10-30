@@ -4,7 +4,7 @@ import LocationForm from "./components/LocationForm";
 import { useState } from "react";
 import axios from "axios";
 
-const API_KEY = import.meta.env.VITE - API - KEY;
+const API_KEY = import.meta.env.VITE_API_KEY;
 
 export default function App() {
   const [location, setLocation] = useState({});
@@ -17,16 +17,14 @@ export default function App() {
   async function getLocation(event) {
     event.preventDefault();
 
-    const API = `https://eu1.locationiq.com/v1/search?q-${search}&key=${API_KEY}&format-json`;
-
+    const API = `https://eu1.locationiq.com/v1/search?q=${search}&key=${API_KEY}&format=json`;
     const res = await axios.get(API);
 
     setLocation(res.data[0]);
   }
-
   return (
-    <div>
-      <h1>Choose your location!</h1>
+    <>
+      <h1>Choose Your Location</h1>
       <LocationForm getLocation={getLocation} handleChange={handleChange} />
       <h2>{location.display_name}</h2>
       <h2>
@@ -34,8 +32,8 @@ export default function App() {
       </h2>
       <img
         src={`https://maps.locationiq.com/v3/staticmap?key=${API_KEY}&center=${location.lat},${location.lon}&zoom=16`}
-        alt="Location map"
+        alt="location map"
       />
-    </div>
+    </>
   );
 }
