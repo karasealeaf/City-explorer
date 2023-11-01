@@ -9,6 +9,7 @@ const API_KEY = import.meta.env.VITE_API_KEY;
 export default function App() {
   const [location, setLocation] = useState({});
   const [search, setSearch] = useState({});
+  const [weather, setWeather] = useState([]);
 
   function handleChange(event) {
     setSearch(event.target.value);
@@ -21,6 +22,17 @@ export default function App() {
     const res = await axios.get(API);
 
     setLocation(res.data[0]);
+    getWeather(res.data[0].lat, res.data[0].lon, search);
+  }
+
+  async function getWeather(lon, lat, search) {
+    const API = `http://localhost:8080/weather?lon=${lon}&lat=${lat}&searchQuery=${search}`;
+
+    const res = await axios.get(API);
+
+    setWeather(res.data);
+
+    //setLocation(res.data[0]);
   }
   return (
     <>
@@ -34,6 +46,10 @@ export default function App() {
         src={`https://maps.locationiq.com/v3/staticmap?key=${API_KEY}&center=${location.lat},${location.lon}&zoom=16`}
         alt="location map"
       />
+      <h2>Weather: {weather}</h2>
     </>
   );
 }
+
+/*http://localhost:8080/weather?lon=2.3200410217200766
+&lat=48.8588897&searchQuery=Paris*/

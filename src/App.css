@@ -1,0 +1,35 @@
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&display=swap");
+
+body {
+  margin: 0;
+  padding: 0;
+  background: url("assets/background.png") no-repeat center center fixed;
+  background-size: cover;
+  font-family: "IBM Plex Mono", monospace;
+}
+
+main {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.locationForm {
+  background: rgba(255, 255, 255, 0.8);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  width: 300px;
+  text-align: center;
+}
+
+h2 {
+  font-size: 14px;
+}
+
+img {
+  width: 400px;
+  height: 400px;
+  border-radius: 50%;
+  border: 3px solid #1b1b1b;
+}
